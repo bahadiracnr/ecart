@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="auth-service" />
+        <module name="config-common" />
         <module name="postgresql-common" />
         <module name="exception-common" />
         <module name="token-common" />
@@ -17,6 +18,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="auth-service" options="-parameters" />
+      <module name="config-common" options="-parameters" />
       <module name="exception-common" options="-parameters" />
       <module name="parent" options="" />
       <module name="postgresql-common" options="-parameters" />

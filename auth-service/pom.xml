@@ -31,6 +31,16 @@
 			<artifactId>postresql-common</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.ecart</groupId>
+			<artifactId>exception-common</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.ecart</groupId>
+			<artifactId>token-common</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
 	</dependencies>
 
 	<parent>

@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/parent/postgresql-common/pom.xml" />
         <option value="$PROJECT_DIR$/parent/exception-common/pom.xml" />
         <option value="$PROJECT_DIR$/parent/token-common/pom.xml" />
+        <option value="$PROJECT_DIR$/parent/config-common/pom.xml" />
       </list>
     </option>
   </component>

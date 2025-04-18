@@ -1,5 +1,8 @@
 package com.ecart.tokencommon.filter;
 
+import com.ecart.exceptioncommon.base.BaseException;
+import com.ecart.exceptioncommon.err.ErrorMessage;
+import com.ecart.exceptioncommon.model.MessageType;
 import com.ecart.tokencommon.service.JWTService;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
@@ -55,9 +58,11 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         }
 
         catch(ExpiredJwtException ex){
+            throw new BaseException(new ErrorMessage(MessageType.TOKEN_IS_EXPIRED, ex.getMessage()));
 
         }
         catch (Exception e){
+            throw new BaseException(new ErrorMessage(MessageType.GENERAL_EXCEPTION, e.getMessage()));
 
         }
 
