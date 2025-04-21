@@ -34,6 +34,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
             "register",
             "authenticate",
             "refreshToken"
+
     );
 
     @Override

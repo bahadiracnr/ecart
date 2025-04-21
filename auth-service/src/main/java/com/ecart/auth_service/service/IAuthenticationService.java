@@ -1,11 +1,12 @@
 package com.ecart.auth_service.service;
 
-import com.ecart.auth_service.dto.AuthRequest;
-import com.ecart.auth_service.dto.AuthResponse;
-import com.ecart.auth_service.dto.DtoUser;
+import com.ecart.auth_service.dto.*;
 
 public interface IAuthenticationService {
-    public DtoUser register(AuthRequest input);
 
-    public AuthResponse authenticate(AuthRequest input);
+    DtoUser register(AuthRequest input);
+
+    AuthResponse authenticate(LoginRequest input);
+
+    AuthResponse refreshToken(RefreshTokenRequest input);
 }

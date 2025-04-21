@@ -6,19 +6,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AuthRequest {
-
-    @NotEmpty
-    private String firstName;
-
-    @NotEmpty
-    private String lastName;
+public class LoginRequest {
 
     @NotEmpty
     private String username;
-
-    @NotEmpty
-    private String email;
 
     @NotEmpty
     private String password;

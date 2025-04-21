@@ -1,16 +1,10 @@
 package com.ecart.auth_service.model;
 
-import java.util.Date;
-
 import com.ecart.postgresqlcommon.entity.CommonEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.Date;
 
 @Entity
 @Table(name = "refresh_token")
@@ -20,13 +14,12 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RefreshToken extends CommonEntity {
 
-
-    @Column(name = "refresh_token")
+    @Column(name = "refresh_token", nullable = false, unique = true)
     private String refreshToken;
 
-    @Column(name = "expired_date")
+    @Column(name = "expired_date", nullable = false)
     private Date expiredDate;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private User user;
 }
