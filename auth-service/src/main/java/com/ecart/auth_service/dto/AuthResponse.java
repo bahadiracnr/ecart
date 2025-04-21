@@ -1,6 +1,5 @@
 package com.ecart.auth_service.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
