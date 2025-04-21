@@ -19,11 +19,11 @@ public class User extends CommonEntity {
 
 
 
-    /*@Column(name="first_name", nullable = false, length = 30)
+    @Column(name="first_name", nullable = false, length = 30)
     private String firstName;
 
     @Column(name="last_name",nullable = false, length = 30)
-    private String lastName;*/
+    private String lastName;
 
     @Column(name="username", nullable = false, unique = true, length = 30)
     private String username;

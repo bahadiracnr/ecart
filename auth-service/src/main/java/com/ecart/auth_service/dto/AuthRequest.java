@@ -10,7 +10,16 @@ import lombok.Setter;
 public class AuthRequest {
 
     @NotEmpty
+    private String firstName;
+
+    @NotEmpty
+    private String lastName;
+
+    @NotEmpty
     private String username;
+
+    @NotEmpty
+    private String email;
 
     @NotEmpty
     private String password;

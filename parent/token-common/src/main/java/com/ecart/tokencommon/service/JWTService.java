@@ -1,10 +1,10 @@
 package com.ecart.tokencommon.service;
 
 
+import com.ecart.tokencommon.dtos.UserJwtDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.stereotype.Service;
-import org.springframework.security.core.userdetails.UserDetails;
 
 
 
@@ -23,7 +23,7 @@ public class JWTService {
 
     public static final String SECRET_KEY = "JfVoLB61pmyKbWswGsuxD6TMnPFZzsoOACmSd1mA5hM=";
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(UserJwtDto userDetails) {
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date())
