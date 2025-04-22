@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private JWTService jwtService;
 
-    private final List<String> whitelist = Arrays.asList(
+    private final List<String> whitelist = List.of(
             "/register",
             "/authenticate",
             "/refreshToken"
@@ -35,7 +34,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getRequestURI();
-        return whitelist.stream().anyMatch(path::startsWith);
+        return whitelist.stream().anyMatch(path::equalsIgnoreCase);
     }
 
     @Override
@@ -56,8 +55,9 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         try {
             String username = jwtService.getUsernameByToken(token);
 
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null
-                    && jwtService.isTokenValid(token)) {
+            if (username != null &&
+                    SecurityContextHolder.getContext().getAuthentication() == null &&
+                    jwtService.isTokenValid(token)) {
 
                 UsernamePasswordAuthenticationToken authToken =
                         new UsernamePasswordAuthenticationToken(username, null, Collections.emptyList());

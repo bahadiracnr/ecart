@@ -4,6 +4,7 @@ import com.ecart.tokencommon.dtos.UserJwtDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
@@ -13,7 +14,8 @@ import java.util.function.Function;
 @Service
 public class JWTService {
 
-    public static final String SECRET_KEY = "JfVoLB61pmyKbWswGsuxD6TMnPFZzsoOACmSd1mA5hM=";
+    @Value("${jwt.secret}")
+    private String secretKey; // Dışarıdan alınacak, sabit değil!
 
     public String generateToken(UserJwtDto userDetails) {
         return Jwts.builder()
@@ -46,7 +48,7 @@ public class JWTService {
     }
 
     private Key getKey() {
-        byte[] bytes = Decoders.BASE64.decode(SECRET_KEY);
+        byte[] bytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(bytes);
     }
 }

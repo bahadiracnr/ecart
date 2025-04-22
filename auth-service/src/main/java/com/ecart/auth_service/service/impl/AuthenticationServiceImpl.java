@@ -111,4 +111,56 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
         return new AuthResponse(accessToken, savedRefreshToken.getRefreshToken());
     }
+
+    @Override
+    public DtoUser getUserByUsername(String username) {
+        Optional<User> userOpt = userRepository.findByUsernameAndIsDeletedFalse(username);
+
+        if (userOpt.isEmpty()) {
+            throw new BaseException(new ErrorMessage(MessageType.USERNAME_NOT_FOUND, username));
+        }
+
+        User user = userOpt.get();
+        DtoUser dto = new DtoUser();
+        dto.setUsername(user.getUsername());
+        dto.setPassword(user.getPassword());
+        return dto;
+    }
+
+
+    @Override
+    public DtoUser updateUser(String username, UserUpdateRequest input) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new BaseException(new ErrorMessage(MessageType.USERNAME_NOT_FOUND, username)));
+
+        user.setFirstName(input.getFirstName());
+        user.setLastName(input.getLastName());
+        user.setEmail(input.getEmail());
+
+
+        if (input.getCurrentPassword() != null && input.getNewPassword() != null) {
+            if (!passwordEncoder.matches(input.getCurrentPassword(), user.getPassword())) {
+                throw new BaseException(new ErrorMessage(MessageType.USERNAME_OR_PASSWORD_INVALID, "Mevcut şifre hatalı"));
+            }
+            user.setPassword(passwordEncoder.encode(input.getNewPassword()));
+        }
+
+        User updatedUser = userRepository.save(user);
+
+        DtoUser dtoUser = new DtoUser();
+        BeanUtils.copyProperties(updatedUser, dtoUser);
+        return dtoUser;
+    }
+
+    @Override
+    public void deleteCurrentUser(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new BaseException(new ErrorMessage(MessageType.USERNAME_NOT_FOUND, username)));
+
+        user.setIsDeleted(true);
+        userRepository.save(user);
+    }
+
+
+
 }

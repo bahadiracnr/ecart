@@ -9,4 +9,12 @@ public interface IAuthenticationService {
     AuthResponse authenticate(LoginRequest input);
 
     AuthResponse refreshToken(RefreshTokenRequest input);
+
+    DtoUser getUserByUsername(String username);
+
+    DtoUser updateUser(String username, UserUpdateRequest input);
+
+    void deleteCurrentUser(String username);
+
+
 }

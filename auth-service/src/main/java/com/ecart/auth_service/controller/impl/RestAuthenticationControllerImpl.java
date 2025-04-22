@@ -7,9 +7,8 @@ import com.ecart.exceptioncommon.rootRest.RestBaseController;
 import com.ecart.exceptioncommon.rootRest.RootEntity;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class RestAuthenticationControllerImpl extends RestBaseController implements IRestAuthenticationController {
@@ -34,4 +33,26 @@ public class RestAuthenticationControllerImpl extends RestBaseController impleme
     public RootEntity<AuthResponse> refreshToken(@Valid @RequestBody RefreshTokenRequest input) {
         return ok(authenticationService.refreshToken(input));
     }
+
+    @GetMapping("/user/me")
+    public RootEntity<DtoUser> getCurrentUser() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return ok(authenticationService.getUserByUsername(username));
+    }
+
+    @PutMapping("/user/update")
+    public RootEntity<DtoUser> updateUser(@Valid @RequestBody UserUpdateRequest input) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return ok(authenticationService.updateUser(username, input));
+    }
+
+    @DeleteMapping("/user/delete")
+    public RootEntity<String> deleteCurrentUser() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        authenticationService.deleteCurrentUser(username);
+        return ok("Kullanıcı başarıyla silindi.");
+    }
+
+
+
 }
