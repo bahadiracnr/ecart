@@ -8,9 +8,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="auth-service" />
-        <module name="config-common" />
         <module name="postgresql-common" />
         <module name="exception-common" />
+        <module name="store-service" />
+        <module name="config-common" />
+        <module name="redis-common" />
         <module name="token-common" />
       </profile>
     </annotationProcessing>
@@ -22,6 +24,8 @@
       <module name="exception-common" options="-parameters" />
       <module name="parent" options="" />
       <module name="postgresql-common" options="-parameters" />
+      <module name="redis-common" options="-parameters" />
+      <module name="store-service" options="-parameters" />
       <module name="token-common" options="-parameters" />
     </option>
   </component>

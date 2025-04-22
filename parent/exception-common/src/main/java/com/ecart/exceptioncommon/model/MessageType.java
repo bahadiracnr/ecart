@@ -9,7 +9,8 @@ public enum MessageType {
     USENAME_OR_PASSWORD_INVALID("1007", "Kullanıcı adı veya şifre hatalı"),
     USERNAME_OR_PASSWORD_INVALID("1007", "Kullanıcı adı veya şifre hatalı"),
     REFRESH_TOKEN_NOT_FOUND("1008", "Böyle bir token yok"),
-    REFRESH_TOKEN_IS_EXPIRED("1009", "Refresh tokeın ın süresi bitmiştir");
+    REFRESH_TOKEN_IS_EXPIRED("1009", "Refresh tokeın ın süresi bitmiştir"),
+    PRODUCT_NOT_FOUND("2001", "Ürün bulunamadı");
 
 
     private String code;

@@ -32,17 +32,22 @@
 			<dependency>
 				<groupId>com.ecart</groupId>
 				<artifactId>postresql-common</artifactId>
-				<version>1.0.0-SNAPSHOT</version>
+				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.ecart</groupId>
 				<artifactId>exception-common</artifactId>
-				<version>1.0.0-SNAPSHOT</version>
+				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.ecart</groupId>
 				<artifactId>token-common</artifactId>
-				<version>1.0.0-SNAPSHOT</version>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>com.ecart</groupId>
+				<artifactId>redis-common</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -50,6 +55,7 @@
 
 
 	<modules>
+		<module>redis-common</module>
 		<module>postgresql-common</module>
 		<module>exception-common</module>
 		<module>token-common</module>
