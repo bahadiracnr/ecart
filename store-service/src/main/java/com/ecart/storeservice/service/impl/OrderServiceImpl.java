@@ -6,7 +6,9 @@ import com.ecart.exceptioncommon.model.MessageType;
 import com.ecart.storeservice.dto.OrderResponse;
 import com.ecart.storeservice.dto.SaveOrderRequest;
 import com.ecart.storeservice.model.Order;
+import com.ecart.storeservice.model.Product;
 import com.ecart.storeservice.repository.OrderRepository;
+import com.ecart.storeservice.repository.ProductRepository;
 import com.ecart.storeservice.service.IOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,13 +21,25 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements IOrderService {
 
     private final OrderRepository orderRepository;
+    private final ProductRepository productRepository;
 
     @Override
     public OrderResponse createOrder(SaveOrderRequest request) {
+        Product product = productRepository.findByIdAndIsDeletedFalse(request.getProductId())
+                .orElseThrow(() -> new BaseException(
+                        new ErrorMessage(
+                                MessageType.NO_RECORD_EXIST,
+                                "Ürün bulunamadı: " + request.getProductId()
+                        )
+                ));
+
+        Double totalPrice = product.getPrice() * request.getQuantity();
+
         Order order = Order.builder()
                 .userId(request.getUserId())
                 .productId(request.getProductId())
                 .quantity(request.getQuantity())
+                .totalPrice(totalPrice)
                 .status("CREATED")
                 .build();
 

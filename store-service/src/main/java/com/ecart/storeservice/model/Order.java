@@ -27,5 +27,7 @@ public class Order extends CommonEntity {
     private Double totalPrice;
 
     @Column(name = "status", nullable = false, length = 20)
-    private String status; // CREATED, CANCELLED, COMPLETED gibi sabit değerler
+    private String status;
+
+
 }
