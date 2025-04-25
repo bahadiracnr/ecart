@@ -14,9 +14,11 @@
         <module name="config-common" />
         <module name="redis-common" />
         <module name="token-common" />
-        <module name="notifications-service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="notifications-service" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
