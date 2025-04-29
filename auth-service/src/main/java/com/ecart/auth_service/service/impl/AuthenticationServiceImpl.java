@@ -1,6 +1,8 @@
 package com.ecart.auth_service.service.impl;
 
+
 import com.ecart.auth_service.dto.*;
+import com.ecart.auth_service.producer.RegisterEventProducer;
 import com.ecart.auth_service.model.RefreshToken;
 import com.ecart.auth_service.model.User;
 import com.ecart.auth_service.repository.RefreshTokenRepository;
@@ -35,6 +37,9 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
 
+    @Autowired
+    private RegisterEventProducer registerEventProducer; // ✅ Kafka Producer eklendi
+
     private User createUser(AuthRequest input) {
         User user = new User();
         user.setCreateTime(new Date());
@@ -59,6 +64,15 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         DtoUser dtoUser = new DtoUser();
         User savedUser = userRepository.save(createUser(input));
         BeanUtils.copyProperties(savedUser, dtoUser);
+
+
+        RegisterEvent registerEvent = new RegisterEvent(
+                savedUser.getEmail(),
+                savedUser.getFirstName(),
+                savedUser.getLastName()
+        );
+        registerEventProducer.sendRegisterEvent(registerEvent);
+
         return dtoUser;
     }
 
@@ -127,7 +141,6 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         return dto;
     }
 
-
     @Override
     public DtoUser updateUser(String username, UserUpdateRequest input) {
         User user = userRepository.findByUsername(username)
@@ -136,7 +149,6 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         user.setFirstName(input.getFirstName());
         user.setLastName(input.getLastName());
         user.setEmail(input.getEmail());
-
 
         if (input.getCurrentPassword() != null && input.getNewPassword() != null) {
             if (!passwordEncoder.matches(input.getCurrentPassword(), user.getPassword())) {
@@ -160,7 +172,4 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         user.setIsDeleted(true);
         userRepository.save(user);
     }
-
-
-
 }
